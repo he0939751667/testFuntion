@@ -2,7 +2,7 @@
     
     <target name="init">
        
-       <copy encoding="UTF-8" includeemptydirs="false" todir="V:\babylon\yskoa_uat\setFuntion">
+       <copy encoding="UTF-8" includeemptydirs="false" todir="V:\babylon\yskoa_uat\\setFuntion">
            <fileset dir="D:\EmakerProject\testFuntion\src\setFuntion">
                       </fileset>
        </copy>

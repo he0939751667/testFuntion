@@ -6,6 +6,7 @@ import java.util.Vector;
 import jcx.db.talk;
 import jcx.jform.bNotify;
 import jcx.util.convert;
+
 import com.ysk.service.BaseService;
 
 public class _bNotify extends bNotify{
@@ -46,6 +47,51 @@ public class _bNotify extends bNotify{
 			message("EMAIL已寄出通知");
 		} else {
 			message("EMAIL寄出失敗");
+		}
+	}
+	/**
+	 * 設定第一次欄位資料
+	 * @param field
+	 * @return
+	 */
+	public void set_first_table_data(String[] field){
+		for(int i=0;i<field.length;i++){
+			field[i] = getValue(field[i]);
+		}
+		String first_data[][] = {field};
+		for(int i=0;i<first_data.length;i++){
+			setTableData("table1", first_data);
+		}
+	}
+	/**
+	 * 設定新增一筆的table資料
+	 * @param getData
+	 * @param field
+	 */
+	public void set_total_table_data(String[][] getData,String[] field){
+		for(int i=0;i<field.length;i++){
+			field[i] = getValue(field[i]);
+		}
+		String tot_data[][] = new String[getData.length][field.length];
+		for(int i=0;i<getData.length-1;i++){
+			for(int j=0;j<field.length;j++){
+				tot_data[i][j] = getData[i][j];
+			}
+		}
+		for(int i=0;i<field.length;i++){
+			tot_data[getData.length-1][i] = field[i];
+		}
+		for(int i=0;i<tot_data.length;i++){
+			setTableData("table1", tot_data);
+		}
+	}
+	/**
+	 * 清除欄位資料
+	 * @param field
+	 */
+	public void clear_field(String[] field){
+		for(int i=0;i<field.length;i++){
+			setValue(field[i],"");
 		}
 	}
 	@Override

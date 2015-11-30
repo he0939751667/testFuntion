@@ -27,7 +27,7 @@ public class _hproc extends hproc {
 	 * @throws SQLException
 	 * @throws Exception
 	 */
-	public String[][] queryFuntion(String tablename, String EMPID, String PNO,
+	public String[][] queryFuntion(String tablename,String projectname, String EMPID, String PNO,
 			String MDATE, String MDATE1) throws SQLException, Exception {
 		talk t = getTalk();
 		String sql = "select PNO,EMPID,DATE,(select F_INP_STAT from "
@@ -46,10 +46,10 @@ public class _hproc extends hproc {
 		String s[][] = t.queryFromPool(sql);
 		// 在table欄位裡的簽核狀態，判斷完後新增一段結案與未結案顯示的顏色
 		for (int i = 0; i < s.length; i++) {
-			if (s[i][3].trim().equals("結案"))
+			if (s[i][3].trim().equals("結案") || s[i][3].trim().equals("歸檔")){
 				s[i][3] = s[i][3].trim() + "<font color=blue>(已結案)</font>";
-			else {
-				Vector people = getApprovablePeople("穩定性取樣提醒異動單", "a.PNO='"
+			}else {
+				Vector people = getApprovablePeople(projectname, "a.PNO='"
 						+ s[i][0] + "'");
 				StringBuffer sb = new StringBuffer();
 				if (people != null) {
@@ -478,6 +478,7 @@ public class _hproc extends hproc {
 		t.execFromPool(sql);
 		message("更新完成!");
 	}
+
 	@Override
 	public String action(String arg0) throws Throwable {
 		// TODO Auto-generated method stub
